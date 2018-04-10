@@ -45,7 +45,7 @@
 		var grammarPassages = Story.lookup("tags", "grammar");
 
 		if(grammarPassages.length == 0){
-				window.grammar = {"origin": [""]};
+				grammar = tracery.createGrammar({"origin": [""]});
 		}else{
 			grammarString = "{";
 			for(var i = 0; i < grammarPassages.length; i++){
@@ -125,8 +125,9 @@
 						id     : 'tracery',
 						src    : './tracery/tracery.js',
 						onload : function (evt){
-							//load your grammar here! Use generateGrammar, grammarFromPassage, or grammarFromFile
-							grammarFromPassage("Grammar");
+							//load your grammar here!
+							//Use generateGrammar, grammarFromPassage, or grammarFromFile
+							generateGrammar();
 						}
 					});
 				}
@@ -221,7 +222,20 @@
         }
     }
 	});
+	
+	/*
+		Macro for <<printGrammar>>
+	*/
+	Macro.add("printGrammar", {
+    handler  : function () {
+        try {
+					var result = grammar.toJSON();
+					$(this.output).append(result);
+					
+        }
+        catch (ex) {
+            return this.error("error: " + ex.message);
+        }
+    }
+	});
 })();
-
-
-
