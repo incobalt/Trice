@@ -1,8 +1,10 @@
 # Trice
 A wrapper for [Tracery] (by @[galaxykate]) for [Twine] _(2.x [Sugar Cube] format)_.
 This project was heavily inspired by [Twincery] (a Twine 1.x wrapper for Tracery) by @[mrfb].
+If you have any problems or questions about Trice, let me know here or at @[incobalt].
 
 There is an excelent [Tracery tutorial] that you can use to learn more about using Tracery. You can also check out the [Twine 2 Guide] for information about getting started with Twine.
+
 The purpose of Trice is the same as Twinecery:
 
 1. Make it easy to author and use Tracery grammars using the Twine 2 interface
