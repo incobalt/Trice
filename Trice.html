@@ -232,8 +232,9 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 						id     : 'tracery',
 						src    : './tracery/tracery.js',
 						onload : function (evt){
-							//load your grammar here! Use generateGrammar, grammarFromPassage, or grammarFromFile
-							generateGrammar("Grammar");
+							//load your grammar here!
+							//Use generateGrammar, grammarFromPassage, or grammarFromFile
+							generateGrammar();
 						}
 					});
 				}
