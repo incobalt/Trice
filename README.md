@@ -22,6 +22,7 @@ The purpose of Trice is the same as Twinecery:
 	- [The <\<trace>> Macro](#the-trace-macro)
 	- [The trace() Function](#the-trace-function)
 	- [Trice Links](#trice-links)
+- [Trice Example](#trice-example)
 
 ## Setting up Trice
 There are two ways to set up Trice. If you're starting a new Twine, you can simply import the provided Trice.html from the Twine 2 main menu. The other way to set up Trice is to open the Trice.js file and copy its contents. Then open a story or create a new one. With the story open, click on the arrow menu in the lower left and select Edit Story JavaScript from the menu that appears. Go to the end of the file and paste the text you copied earlier.  
@@ -84,6 +85,9 @@ The trace() function is almost identical to the <\<trace>> macro, except that it
 The final way you can generate text is by using Trice links. A Trice link is a Twine link that will replace the text of the link and the passage it links to with generated text. This means that every time the player visits the passage, the link will say something different and link to a different passage.  
 Trice links are simply regular Twine links that point to a passage that has the "grammar" tag. Thus, the "[[animal]]" link points to the animal passage which has the "grammar" tag. When the link gets displayed, though, it will show up as something like "[[cat]]" or "[[octopus]]" instead. These links will now go to the "cat" and "octopus" passages respectively. Like when building grammars, you can start a list of modifiers for the link using the left arrow (<-) symbol. Thus "[[animal<-capitalize.a]]" might result in a link like "[[A dog]]". Nevertheless, this link will still only point to the "dog" passage, so you don't have to make a different passage for every modifier you might want to include in your links.  
 Trice links only work when you have passages with "grammar" tags on them. If you're using another method to compile the grammar for Tracery, then you probably won't have these kinds of passages already in your story. That said, there's nothing stopping you from making passages with "grammar" tags anyway. Trice links only look at the passage titles and tags to see if they should generate a new link.
+## Trice Example
+The Twine story "The Zoo of Unnamed Creatures" is included in the Trice Example folder (Trice Example.html). This is a Twine story that uses all the functions of Trice described above. Many of the Twine passages in the story have comments explaining the use of various Trice features used in that passage. The Trice Example folder also shows the way to set up Tracery so that Trice can find it.  
+Feel free to modify, expand, or otherwise use this example as you see fit. It is intentionally small, and it can serve as a good jumping-off point.
 
 [//]: #
    [Tracery]: <http://tracery.io>
