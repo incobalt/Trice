@@ -52,9 +52,25 @@
 				var splitPassage = grammarPassages[i].text.replace(/\[\[/g, "#");
 				splitPassage = splitPassage.replace(/\]\]/g, "#");
 				splitPassage = splitPassage.replace(/<-/g, ".");
+				if(grammarPassages[i].tags.includes("noComments") == false){
+					splitPassage = splitPassage.replace(/[/][*][^(*/)]*[*][/]/igm, "");
+					splitPassage = splitPassage.replace(/[/][%][^(%/)]*[%][/]/igm, "");
+					splitPassage = splitPassage.replace(/<!--[^(-->)]*-->/igm, "");
+				}
 				var splitPassageArray = splitPassage.split(/\n/);
 				var grammarString = grammarString + "\"" + grammarPassages[i].title + "\": [";
 				for(var j = 0; j < splitPassageArray.length; j++){
+					if(grammarPassages[i].tags.includes("noComments") == false &&
+						splitPassageArray[j].includes("//") == true){
+						splitPassageArray[j] = splitPassageArray[j].substring(0,
+										    			   splitPassageArray[j].indexOf("//"));
+					}
+					if(splitPassageArray[j] == ""){
+						if(j == splitPassageArray.length - 1){
+							grammarString = grammarString.substring(0, grammarString.length - 2);
+						}
+						continue;
+					}
 					grammarString = grammarString + "\"";
 					grammarString = grammarString + splitPassageArray[j];
 					grammarString = grammarString + "\"";
@@ -239,3 +255,7 @@
     }
 	});
 })();
+
+
+
+

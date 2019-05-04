@@ -68,6 +68,10 @@ This will cause Twine to show a link arrow from the origin passage to the animal
 The #animal# #action.ed# with #style#.
 ```
 Notice that in the Trice style, you use an arrow (<-) to start a list of modifiers. This makes passage linking work nicely in Twine. Only the first arrow is used, the rest use periods to separate them, so you would write "[[action<-ed.a.capitalize]]" if you wanted to add all three modifiers.
+##### Comments and Blank Lines in Grammar Passages
+Trice ignores Sugar Cube supported comments and blank lines in grammar passages. That means you can space out your rules as you like, and add helpful comments for yourself or anyone reading your Twine source! The supported styles are `/* */`, `/% %/` and `<!-- -->`. 
+Trice won't catch these if they are padded like `/***`, but you can put them on their own line. Additionally, inline // style comments are also ignored. Inline comments can also be on their own line. If you don't want comments to be ignored by Trice, you can add the `noComments` tag to the grammar passage. Note that Trice will still take the comments line by line in this situation.
+See the gHabitatFeature passage in TriceExample.html for an example of how you can use comments.
 ### Outputting Grammars
 Sometimes you just want to use Twine's interface to build a grammar, but don't actually want to use Tracery to generate text in a Twine story. If this is the case, then you can use the <\<printGrammar>> macro in any passage **except the starting passage** to output a string of JSON that you can then copy into another implementation of Tracery.
 ### Compiling the Grammar

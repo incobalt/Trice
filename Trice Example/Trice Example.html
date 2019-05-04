@@ -123,6 +123,8 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 
 
 
+
+
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">/*
 	Tracery by Kate Compton (@galaxykate)
 	Wrapped to SugarCube by Michael Thomét (@incobalt)
@@ -176,9 +178,25 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 				var splitPassage = grammarPassages[i].text.replace(/\[\[/g, "#");
 				splitPassage = splitPassage.replace(/\]\]/g, "#");
 				splitPassage = splitPassage.replace(/<-/g, ".");
+				if(grammarPassages[i].tags.includes("noComments") == false){
+					splitPassage = splitPassage.replace(/[/][*][^(*/)]*[*][/]/igm, "");
+					splitPassage = splitPassage.replace(/[/][%][^(%/)]*[%][/]/igm, "");
+					splitPassage = splitPassage.replace(/<!--[^(-->)]*-->/igm, "");
+				}
 				var splitPassageArray = splitPassage.split(/\n/);
 				var grammarString = grammarString + "\"" + grammarPassages[i].title + "\": [";
 				for(var j = 0; j < splitPassageArray.length; j++){
+					if(grammarPassages[i].tags.includes("noComments") == false &&
+						splitPassageArray[j].includes("//") == true){
+						splitPassageArray[j] = splitPassageArray[j].substring(0,
+										    			   splitPassageArray[j].indexOf("//"));
+					}
+					if(splitPassageArray[j] == ""){
+						if(j == splitPassageArray.length - 1){
+							grammarString = grammarString.substring(0, grammarString.length - 2);
+						}
+						continue;
+					}
 					grammarString = grammarString + "\"";
 					grammarString = grammarString + splitPassageArray[j];
 					grammarString = grammarString + "\"";
@@ -250,21 +268,8 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 						src    : './tracery/tracery.js',
 						onload : function (evt){
 							//load your grammar here!
-							
-							//Use generateGrammar,
-							//    grammarFromPassage, or 
-							//    grammarFromFile
-							
-							//Use the following to generate grammar from
-							//grammar-tagged passages:
+							//Use generateGrammar, grammarFromPassage, or grammarFromFile
 							generateGrammar();
-							
-							//Use the following to load grammar from a file:
-							//grammarFromFile("./grammar.json");
-							
-							//Use the following to load JSON from the text
-							//of the specified passage:
-							//grammarFromPassage("gFullGrammar");
 						}
 					});
 				}
@@ -380,9 +385,6 @@ var saveAs=saveAs||navigator.msSaveBlob&&navigator.msSaveBlob.bind(navigator)||f
 
 
 
-
-
-
 </script><tw-passagedata pid="1" name="About" tags="" position="875,350" size="100,100">@@.center;
 !The Zoo of Unnamed Creatures
 
@@ -471,9 +473,34 @@ enormous
 tiny
 large</tw-passagedata><tw-passagedata pid="11" name="gForest" tags="grammar" position="100,800" size="100,100">forest
 wood
-copse</tw-passagedata><tw-passagedata pid="12" name="gHabitatFeature" tags="grammar" position="250,350" size="100,100">[[gSize]] [[gScenery&lt;-s]] with [[gColor]] [[gShape&lt;-s]] all about
+copse</tw-passagedata><tw-passagedata pid="12" name="gHabitatFeature" tags="grammar" position="250,350" size="100,100">/*
+This passage demonstrates linking to other grammar passages
+in order to create complex rules that can generate text
+even further!
+
+This passage also demonstrates the various comments you can
+make that get ignored.
+*/
+
+//The following line links to several other grammar passages
+[[gSize]] [[gScenery&lt;-s]] with [[gColor]] [[gShape&lt;-s]] all about
+
+/%
+If you don&#39;t like the arrows going between Grammar passages,
+you can use Tracery syntax instead.
+%/
 #gColor# #gScenery.s# strewn about the area
-[[gColor]] [[gShape&lt;-s]] floating from the sky</tw-passagedata><tw-passagedata pid="13" name="New Creature" tags="" position="1000,650" size="100,100">&lt;&lt;set $currentAnimal to trace(&quot;gAnimal&quot;)&gt;&gt;You have come across &lt;&lt;trace &quot;#gSize.a#&quot;&gt;&gt; $currentAnimal. This $currentAnimal sports &lt;&lt;trace &quot;#gColor# #gShape.s#&quot;&gt;&gt;.&lt;&lt;set $animalFeature to $TrResult&gt;&gt; Additionally, it has &lt;&lt;trace &quot;#gColor# #gCovering#&quot;&gt;&gt; all about. Every once in a while, the creature&#39;s $animalFeature &lt;&lt;trace &quot;#gAction.s# with #gColor# light&quot;&gt;&gt;.
+
+&lt;!--
+You can mix and match syntax styles as you like!
+--&gt;
+[[gColor]] [[gShape&lt;-s]] floating from the sky
+
+//You can also have lines that don&#39;t link to grammars.
+wan light filters all about
+
+//blank lines are ignored when making grammars, so you
+//can space your rules as much as you want!</tw-passagedata><tw-passagedata pid="13" name="New Creature" tags="" position="1000,650" size="100,100">&lt;&lt;set $currentAnimal to trace(&quot;gAnimal&quot;)&gt;&gt;You have come across &lt;&lt;trace &quot;#gSize.a#&quot;&gt;&gt; $currentAnimal. This $currentAnimal sports &lt;&lt;trace &quot;#gColor# #gShape.s#&quot;&gt;&gt;.&lt;&lt;set $animalFeature to $TrResult&gt;&gt; Additionally, it has &lt;&lt;trace &quot;#gColor# #gCovering#&quot;&gt;&gt; all about. Every once in a while, the creature&#39;s $animalFeature &lt;&lt;trace &quot;#gAction.s# with #gColor# light&quot;&gt;&gt;.
 
 If you wish, you may give the creature a name:
 &lt;&lt;textbox &quot;$lastAnimal&quot; &quot;&quot;&gt;&gt;
